@@ -17,7 +17,7 @@ class DynamicObs:
         self.dynY += self.speedY
         
         if self.dynX <= self.lower_limit or self.dynX >= self.upper_limit:
-            self.speedX = -self.speedX # cho hình dội lại
-            self.speedY = -self.speedY # cho hình dội lại
+            self.speedX = -self.speedX
+            self.speedY = -self.speedY 
 
         pygame.draw.circle(self.screen,(0,191,255),(self.dynX,self.dynY),self.radius)
