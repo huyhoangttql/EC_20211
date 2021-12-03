@@ -1,11 +1,14 @@
-from os import error
+# from os import error
 import pygame,sys
 import json
 from DynamicObs import *
 from StaticObs import *
+from algo import list_vertices,list_node
+import time
+from Robot import *
 pygame.init()
 
-screen = pygame.display.set_mode((1050,600))
+screen = pygame.display.set_mode((1050,700))
 pygame.display.set_caption("Mapppp")
 running = True
 
@@ -30,11 +33,12 @@ blue = (0,191,255)
 pink = (205,192,203)
 
 #Init posiotion of robot and goal 
-x_robot = y_robot = 100
-x_goal = 700
-y_goal = 500
+x_robot = 200
+y_robot = 600
+x_goal = 400
+y_goal = 300
 
-active = False
+# active = False
 
 def inputLoader(input_file):
     inputLoad = True
@@ -60,13 +64,41 @@ def inputLoader(input_file):
             break
     return staticObss,dynamicObss
 
+list_vertices.insert(0,[x_robot,y_robot])
+list_vertices.append([x_goal,y_goal])
+# list_vertices.append([0,0])
+# print(len(list_vertices))
+robot = Robot(screen,200,600,list_vertices,12)
 
+# def drawRobot(lst):
+#     i=2
+#     pygame.draw.circle(screen,yellow,[lst[0][0],lst[0][1]],12)
+#     stop = len(lst)
+#     while i+1 != stop:
+#         current = lst[i]
+#         next =lst[i+1]
+#         speedX = (next[0] - current[0])/100 
+#         speedY = (next[1] - current[1])/100
+#         robot_x = lst[i][0]
+#         robot_y = lst[i][1]
+#         robot_x += speedX
+#         robot_y += speedY
+#         # prev = lst[i-1]
+        
+#         pygame.draw.circle(screen,yellow,(robot_x,robot_y),12)
+#         pygame.draw.circle(screen,white,(current[0],current[1]),12)
+#         i +=1
 
 clock = pygame.time.Clock()
 staticObss = []
 dynamicObss = []
-while running:
-    screen.fill(white)
+it = 0
+def draw_vertices(lst,color):
+    for i in range(len(lst)):
+        pygame.draw.rect(screen,color,[lst[i][0],lst[i][1],3,3])
+
+while it != len(list_vertices) and running:
+    #print(list_vertices[it])
 
     #get mouse position
     mouse_x, mouse_y = pygame.mouse.get_pos()  
@@ -79,19 +111,16 @@ while running:
             running = False
 
         #handle file input
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if input_rect.collidepoint(event.pos):
-                active = True
-            else:
-                active = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_BACKSPACE:
-                input_text = input_text[:-1]
-            else:
-                input_text += event.unicode
-            if event.key == pygame.K_F1:
-                print(input_text)
-                staticObss,dynamicObss = inputLoader(input_text)
+        # if event.type == pygame.KEYDOWN:
+        #     if event.key == pygame.K_BACKSPACE:
+        #         input_text = input_text[:-1]
+        #     else:
+        #         input_text += event.unicode
+        #     if event.key == pygame.K_F1:
+        #         print(input_text)
+        #         staticObss,dynamicObss = inputLoader(input_text)
+    staticObss,dynamicObss = inputLoader(input_file='input2.json')
+    screen.fill(white)
 
     #draw input form
     text_input_surface = font.render(input_text,True,(0,0,0))
@@ -99,9 +128,13 @@ while running:
     pygame.draw.rect(screen,red,input_rect,2)
     screen.blit(text_input_surface,(input_rect.x+10,input_rect.y+8))
     input_rect.w = max(150,text_input_surface.get_width()+10)
-    pygame.draw.line(screen,black,(800,0),(800,600),4)
+    pygame.draw.line(screen,black,(500,0),(500,600),4)
 
+    draw_vertices(list_node,red)
+    draw_vertices(list_vertices,black)
     #draw robot and goal
+    # pygame.draw.circle
+    robot.draw(screen=screen, pos = list_vertices[it])
     pygame.draw.circle(screen,yellow,(x_robot,y_robot),12)
     pygame.draw.rect(screen,red,[x_goal,y_goal,20,20])
     
@@ -114,8 +147,8 @@ while running:
 
 
     pygame.display.update()
-
+    pygame.time.delay(200)
     clock.tick(30)
-
+    it+=1
 pygame.quit()
 quit()

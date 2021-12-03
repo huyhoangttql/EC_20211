@@ -1,9 +1,30 @@
 [
     {
         "Dynamic" : "0",
+        "startpointX" : "100",
+        "startpointY" : "100",
+        "length" : "100",
+        "width" : "100"
+    },
+    {
+        "Dynamic" : "0",
         "startpointX" : "200",
         "startpointY" : "300",
         "length" : "50",
-        "width" : "70"
+        "width" : "100"
+    },
+    {
+        "Dynamic" : "0",
+        "startpointX" : "400",
+        "startpointY" : "150",
+        "length" : "50",
+        "width" : "100"
+    },
+    {
+        "Dynamic" : "0",
+        "startpointX" : "150",
+        "startpointY" : "450",
+        "length" : "50",
+        "width" : "50"
     }
 ]
