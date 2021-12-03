@@ -41,10 +41,10 @@ def inputLoader(input_file):
     staticObss = []
     dynamicObss = []
     while inputLoad:
-        # inputfile = input("Nhap file input: ")
+        inputfile = input("Nhap file input: ")
         try:
             with open (f"{input_file}") as f:
-                data = json.load(f)
+                data = json.load("input1.json")
                 for i in data:
                     if i["Dynamic"] == "0":
                         staticObs = StaticObs(screen,int(i["startpointX"]),int(i["startpointY"]),int(i["length"]),int(i["width"]))
