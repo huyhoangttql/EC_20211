@@ -158,8 +158,14 @@ while it!= len(list_vertices) and running:
     clock.tick(30)
     for obstacle in dynamicObss:  
 
-        if(distance(list_vertices[it],[obstacle.dynX,obstacle.dynY])<10):
+        if(distance(list_vertices[it],[obstacle.dynX,obstacle.dynY])<40):
             print("detect dynamic obs")
+            print([obstacle.dynX,obstacle.dynY])
+            print([obstacle.speedX,obstacle.speedY])
+            print(list_vertices[it])
+            print([list_vertices[it+1][0]-list_vertices[it][0],list_vertices[it+1][1]-list_vertices[it][1]])
+            it-=1
+            
         
     it+=1
     
