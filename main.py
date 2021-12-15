@@ -70,6 +70,9 @@ list_vertices.append([x_goal,y_goal])
 # print(len(list_vertices))
 robot = Robot(screen,200,600,list_vertices,12)
 
+def distance(a,b):
+    return(((a[0]-b[0])**2+(a[1]-b[1])**2)**0.5)
+
 # def drawRobot(lst):
 #     i=2
 #     pygame.draw.circle(screen,yellow,[lst[0][0],lst[0][1]],12)
@@ -96,8 +99,10 @@ it = 0
 def draw_vertices(lst,color):
     for i in range(len(lst)):
         pygame.draw.rect(screen,color,[lst[i][0],lst[i][1],3,3])
-
-while it != len(list_vertices) and running:
+# dyn1 = [DynamicObs(screen,100,100,3,4,80,120,5),DynamicObs(screen,150,150,2,3,130,160,3)
+# ]
+staticObss,dynamicObss = inputLoader(input_file='input1.json')
+while it!= len(list_vertices) and running:
     #print(list_vertices[it])
 
     #get mouse position
@@ -119,7 +124,7 @@ while it != len(list_vertices) and running:
         #     if event.key == pygame.K_F1:
         #         print(input_text)
         #         staticObss,dynamicObss = inputLoader(input_text)
-    staticObss,dynamicObss = inputLoader(input_file='input2.json')
+    # staticObss,dynamicObss = inputLoader(input_file='input1.json')
     screen.fill(white)
 
     #draw input form
@@ -137,6 +142,8 @@ while it != len(list_vertices) and running:
     robot.draw(screen=screen, pos = list_vertices[it])
     pygame.draw.circle(screen,yellow,(x_robot,y_robot),12)
     pygame.draw.rect(screen,red,[x_goal,y_goal,20,20])
+    # for i in dyn1:
+    #     i.move()
     
     #draw map
     for obstacle in staticObss:
@@ -149,6 +156,12 @@ while it != len(list_vertices) and running:
     pygame.display.update()
     pygame.time.delay(200)
     clock.tick(30)
+    for obstacle in dynamicObss:  
+
+        if(distance(list_vertices[it],[obstacle.dynX,obstacle.dynY])<10):
+            print("detect dynamic obs")
+        
     it+=1
+    
 pygame.quit()
 quit()

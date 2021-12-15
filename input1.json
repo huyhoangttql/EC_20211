@@ -36,12 +36,12 @@
     },
     {
         "Dynamic" : "1",
-        "dynX" : "150",
-        "dynY" : "250",
+        "dynX" : "350",
+        "dynY" : "350",
         "speedX" : "4",
         "speedY" : "3",
-        "lower_limit" : "150",
-        "upper_limit" : "300",
+        "lower_limit" : "330",
+        "upper_limit" : "380",
         "radius" : "10"
     },
     {
