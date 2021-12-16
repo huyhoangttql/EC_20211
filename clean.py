@@ -122,5 +122,13 @@ node_list = find_path(graph, start_graph, end_graph).nodes
 # print(vor_node[node_list[0]])
 for i in node_list:
     plt.plot([vor.vertices[i][0]] , [vor.vertices[i][1]], marker='o', markersize=10, color="red")
-
-plt.show()
+list_vertices1 =[]
+for i in node_list:
+    list_vertices1.append([round(100*vor_node[i][0],1),round(600-100*vor_node[i][1],1)])
+# print(list_vertices1)
+# plt.show()
+list_node1 = []
+for i in range(len(vor_node)):
+    list_node1.append([round(100*vor_node[i][0],1),round(600-100*vor_node[i][1],1)])
+# print(list_node1)
+# plt.show()

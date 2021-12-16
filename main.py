@@ -6,6 +6,7 @@ from StaticObs import *
 from algo import list_vertices,list_node
 import time
 from Robot import *
+from clean import list_node1,list_vertices1
 pygame.init()
 
 screen = pygame.display.set_mode((1050,700))
@@ -66,6 +67,7 @@ def inputLoader(input_file):
 
 list_vertices.insert(0,[x_robot,y_robot])
 list_vertices.append([x_goal,y_goal])
+list_vertices1.append([x_goal,y_goal])
 # list_vertices.append([0,0])
 # print(len(list_vertices))
 robot = Robot(screen,200,600,list_vertices,12)
@@ -135,12 +137,12 @@ while it!= len(list_vertices) and running:
     input_rect.w = max(150,text_input_surface.get_width()+10)
     pygame.draw.line(screen,black,(500,0),(500,600),4)
 
-    draw_vertices(list_node,red)
-    draw_vertices(list_vertices,black)
+    # draw_vertices(list_node,red)
+    # draw_vertices(list_vertices,black)
     #draw robot and goal
     # pygame.draw.circle
     robot.draw(screen=screen, pos = list_vertices[it])
-    pygame.draw.circle(screen,yellow,(x_robot,y_robot),12)
+    # pygame.draw.circle(screen,yellow,(x_robot,y_robot),12)
     pygame.draw.rect(screen,red,[x_goal,y_goal,20,20])
     # for i in dyn1:
     #     i.move()
@@ -154,7 +156,7 @@ while it!= len(list_vertices) and running:
 
 
     pygame.display.update()
-    pygame.time.delay(200)
+    pygame.time.delay(300)
     clock.tick(30)
     for obstacle in dynamicObss:  
 
@@ -165,6 +167,9 @@ while it!= len(list_vertices) and running:
             print(list_vertices[it])
             print([list_vertices[it+1][0]-list_vertices[it][0],list_vertices[it+1][1]-list_vertices[it][1]])
             it-=1
+            # list_vertices.insert(0,(list_vertices[it]))
+            list_vertices = list_vertices1
+            list_node = list_node1
             
         
     it+=1
