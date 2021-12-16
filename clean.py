@@ -104,7 +104,7 @@ end_graph = 0
 min_dist_start = 100000
 min_dist_end = 100000
 for i in range(len(vor_node)):
-    if (distance(start, vor_node[i]) < min_dist_start) and (vor_check[i][2] != 1) :
+    if (distance(start, vor_node[i]) < min_dist_start) and (vor_check[i][2] != 1 and (start_end > distance(vor_node[i], end))) :
         # and (distance(start,end) > distance(vor_node[i], end))
         min_dist_start = distance(start, vor_node[i])
         start_graph = i
