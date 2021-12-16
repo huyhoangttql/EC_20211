@@ -35,8 +35,8 @@ pink = (205,192,203)
 #Init posiotion of robot and goal 
 x_robot = 200
 y_robot = 600
-x_goal = 400
-y_goal = 300
+x_goal = 300
+y_goal = 170
 
 # active = False
 
@@ -101,7 +101,7 @@ def draw_vertices(lst,color):
         pygame.draw.rect(screen,color,[lst[i][0],lst[i][1],3,3])
 # dyn1 = [DynamicObs(screen,100,100,3,4,80,120,5),DynamicObs(screen,150,150,2,3,130,160,3)
 # ]
-staticObss,dynamicObss = inputLoader(input_file='input1.json')
+staticObss,dynamicObss = inputLoader(input_file='input3.json')
 while it!= len(list_vertices) and running:
     #print(list_vertices[it])
 

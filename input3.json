@@ -28,6 +28,13 @@
         "width" : "50"
     },
     {
+        "Dynamic" : "0",
+        "startpointX" : "300",
+        "startpointY" : "200",
+        "length" : "50",
+        "width" : "100"
+    },
+    {
         "Dynamic" : "1",
         "dynX" : "350",
         "dynY" : "350",
