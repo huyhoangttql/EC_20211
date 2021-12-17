@@ -92,7 +92,11 @@ for vpair in vor.ridge_vertices:
 #điểm bắt đầu và kết thúc, biểu thị bởi chấm hồng
 start = [2.5, 0.62]
 end = [3, 4.1]
-start_end = np.sqrt(np.abs((start[0] - end[0]) * (start[0] - end[0]) -(start[1] - end[1]) * (start[1] - end[1])) )
+
+def distance_list(start, end):
+    return np.sqrt(np.abs((start[0] - end[0])**2 - (start[1] - end[1])**2))
+
+start_end = distance_list(start,end)
 plt.plot([start[0]],[start[1]], marker='o', markersize=15, color="pink")
 plt.plot([end[0]],[end[1]], marker='o', markersize=15, color="pink")
 
@@ -125,6 +129,7 @@ for i in node_list:
 list_vertices1 =[]
 for i in node_list:
     list_vertices1.append([round(100*vor_node[i][0],1),round(600-100*vor_node[i][1],1)])
+list_vertices1.append([end[0]*100, 600 - end[1]*100])
 # print(list_vertices1)
 # plt.show()
 list_node1 = []
@@ -132,3 +137,26 @@ for i in range(len(vor_node)):
     list_node1.append([round(100*vor_node[i][0],1),round(600-100*vor_node[i][1],1)])
 # print(list_node1)
 # plt.show()
+
+def toofarpoint(list_vertices):
+    i = len(list_vertices) - 1
+    while (i >= 1):
+    # for i in range(len(list_vertices) - 1):
+        ver_dist = distance_list(list_vertices[i], list_vertices[i-1])
+        # print(ver_dist)
+        if (ver_dist > 10):
+            x = np.linspace(list_vertices[i-1][0], list_vertices[i][0], int(ver_dist/10))
+            y = np.linspace(list_vertices[i-1][1], list_vertices[i][1], int(ver_dist/10))
+            for j in range(int(ver_dist/10)):
+                # print(i+j)
+                list_vertices.insert(i+j, [x[j], y[j]])
+            # if i > 5: 
+            #     i = i - 4
+        i = i - 1
+
+toofarpoint(list_vertices1)
+# print(distance_list(list_vertices1[0], list_vertices1[1]))
+print(list_vertices1)
+# for i in range(len(list_vertices1) - 1):
+# print(distance_list(list_vertices1[30], list_vertices1[31]))
+    
