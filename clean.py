@@ -131,15 +131,23 @@ for i in node_list:
     list_vertices1.append([round(100*vor_node[i][0],1),round(600-100*vor_node[i][1],1)])
 list_vertices1.append([end[0]*100, 600 - end[1]*100])
 list_vertices1.insert(0,[270.0,526.0])
-# list_vertices1.insert(0,[250,548])
+# list_vertices1.insert(0,[250,538])
+# list_vertices1.insert(0,[230,546])
 print(list_vertices1)
-plt.show()
+print(len(list_vertices1))
+# plt.show()
 list_node1 = []
 for i in range(len(vor_node)):
     list_node1.append([round(100*vor_node[i][0],1),round(600-100*vor_node[i][1],1)])
 # print(list_node1)
-# plt.show()
-
+plt.show()
+# print(list_vertices1[1])
+# print(list_vertices1[0])
+# dist = distance_list(list_vertices1[1], list_vertices1[0])
+# print(dist)
+# x = np.linspace(270,242.6,3)
+# y = np.linspace(list_vertices1[0][1], list_vertices1[1][1], int(dist/10))
+# print([x,y])
 def toofarpoint(list_vertices):
     i = len(list_vertices) -1
     while (i >= 1):
@@ -147,11 +155,18 @@ def toofarpoint(list_vertices):
         ver_dist = distance_list(list_vertices[i], list_vertices[i-1])
         # print(ver_dist)
         if (ver_dist > 10):
-            x = np.linspace(list_vertices[i-1][0], list_vertices[i][0], int(ver_dist/10))
-            y = np.linspace(list_vertices[i-1][1], list_vertices[i][1], int(ver_dist/10))
-            for j in range(int(ver_dist/10)):
-                # print(i+j)
-                list_vertices.insert(i+j, [x[j], y[j]])
+            x = np.linspace(list_vertices[i-1][0], list_vertices[i][0], int(ver_dist/10)+2)
+            y = np.linspace(list_vertices[i-1][1], list_vertices[i][1], int(ver_dist/10)+2)
+            # print("--------------------")
+            # print(i)
+            # print("--------------------")
+            # print([x,y])
+            # print("--------------------")
+            for j in range(1,int(ver_dist/10)+1):
+                print(j)
+                print(i+j)
+                print([x[j], y[j]])
+                list_vertices.insert(i+j-1, [x[j], y[j]])
             # if i > 5: 
             #     i = i - 4
         i = i - 1

@@ -84,6 +84,7 @@ def draw_vertices(lst,color):
         pygame.draw.rect(screen,color,[lst[i][0],lst[i][1],3,3])
 # dyn1 = [DynamicObs(screen,100,100,3,4,80,120,5),DynamicObs(screen,150,150,2,3,130,160,3)
 # ]
+print(list_vertices1)
 staticObss,dynamicObss = inputLoader(input_file='input3.json')
 while it!= len(list_vertices) and running:
     #print(list_vertices[it])
@@ -138,18 +139,31 @@ while it!= len(list_vertices) and running:
     pygame.display.update()
     pygame.time.delay(300)
     clock.tick(30)
+    print(it)
+    print(list_vertices[it])
     for obstacle in dynamicObss:  
-
-        if(distance(list_vertices[it],[obstacle.dynX,obstacle.dynY])<40):
-            print("detect dynamic obs")
-            print([obstacle.dynX,obstacle.dynY])
-            print([obstacle.speedX,obstacle.speedY])
-            print(list_vertices[it])
-            print([list_vertices[it+1][0]-list_vertices[it][0],list_vertices[it+1][1]-list_vertices[it][1]])
-            it-=1
-            # list_vertices.insert(0,(list_vertices[it]))
+        k=len(list_vertices)
+        
+        if(distance(list_vertices[it],[obstacle.dynX,obstacle.dynY])<30): 
+            while k:
+                k= k-1
+                print(k)
+                print("detect dynamic obs")
+                print([obstacle.dynX,obstacle.dynY])
+                print([obstacle.speedX,obstacle.speedY])
+                print(list_vertices[it])
+                print([list_vertices[it+1][0]-list_vertices[it][0],list_vertices[it+1][1]-list_vertices[it][1]])
+                it-=1
+                # list_vertices.insert(0,(list_vertices[it]))
+                # list_vertices = list_vertices1
+                # it = 0
+                list_node = list_node1
+        if k==0:
+            
+                # list_vertices.insert(0,(list_vertices[it]))
             list_vertices = list_vertices1
-            list_node = list_node1
+            it = 0
+            k=50
             
         
     it+=1
