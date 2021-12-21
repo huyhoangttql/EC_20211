@@ -130,8 +130,10 @@ list_vertices1 =[]
 for i in node_list:
     list_vertices1.append([round(100*vor_node[i][0],1),round(600-100*vor_node[i][1],1)])
 list_vertices1.append([end[0]*100, 600 - end[1]*100])
-# print(list_vertices1)
-# plt.show()
+list_vertices1.insert(0,[270.0,526.0])
+# list_vertices1.insert(0,[250,548])
+print(list_vertices1)
+plt.show()
 list_node1 = []
 for i in range(len(vor_node)):
     list_node1.append([round(100*vor_node[i][0],1),round(600-100*vor_node[i][1],1)])
@@ -139,7 +141,7 @@ for i in range(len(vor_node)):
 # plt.show()
 
 def toofarpoint(list_vertices):
-    i = len(list_vertices) - 1
+    i = len(list_vertices) -1
     while (i >= 1):
     # for i in range(len(list_vertices) - 1):
         ver_dist = distance_list(list_vertices[i], list_vertices[i-1])
@@ -156,6 +158,7 @@ def toofarpoint(list_vertices):
 
 toofarpoint(list_vertices1)
 # print(distance_list(list_vertices1[0], list_vertices1[1]))
+print("--------------------------------")
 print(list_vertices1)
 # for i in range(len(list_vertices1) - 1):
 # print(distance_list(list_vertices1[30], list_vertices1[31]))
