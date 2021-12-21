@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from dijkstar import Graph, find_path
 from dijkstar.algorithm import PathInfo
 from scipy.spatial import Voronoi, voronoi_plot_2d
+from clean import toofarpoint
 
 #hàm để add point bị giới hạn bởi (xa,xb) và (ya,yb)
 def add_point(xa,xb,ya,yb):
@@ -113,3 +114,4 @@ list_node = []
 for i in range(len(vor_node)):
     list_node.append([round(100*vor_node[i][0],1),round(600-100*vor_node[i][1],1)])
 # print(list_node)
+toofarpoint(list_vertices)

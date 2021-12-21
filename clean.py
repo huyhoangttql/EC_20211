@@ -91,7 +91,7 @@ for vpair in vor.ridge_vertices:
 
 #điểm bắt đầu và kết thúc, biểu thị bởi chấm hồng
 start = [2.5, 0.62]
-end = [3, 4.1]
+end = [3, 4.3]
 
 def distance_list(start, end):
     return np.sqrt(np.abs((start[0] - end[0])**2 - (start[1] - end[1])**2))

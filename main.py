@@ -9,7 +9,7 @@ from Robot import *
 from clean import list_node1,list_vertices1
 pygame.init()
 
-screen = pygame.display.set_mode((1050,700))
+screen = pygame.display.set_mode((800,700))
 pygame.display.set_caption("Mapppp")
 running = True
 
@@ -22,7 +22,7 @@ input_text = ''
 load_file_input_text = font_small.render('Fill in and press F1 to load the map',True,(0,0,0))
 
 #input_form
-input_rect = pygame.Rect(860,100,130,50)
+input_rect = pygame.Rect(560,100,130,50)
 
 
 #color
@@ -75,25 +75,6 @@ robot = Robot(screen,200,600,list_vertices,12)
 def distance(a,b):
     return(((a[0]-b[0])**2+(a[1]-b[1])**2)**0.5)
 
-# def drawRobot(lst):
-#     i=2
-#     pygame.draw.circle(screen,yellow,[lst[0][0],lst[0][1]],12)
-#     stop = len(lst)
-#     while i+1 != stop:
-#         current = lst[i]
-#         next =lst[i+1]
-#         speedX = (next[0] - current[0])/100 
-#         speedY = (next[1] - current[1])/100
-#         robot_x = lst[i][0]
-#         robot_y = lst[i][1]
-#         robot_x += speedX
-#         robot_y += speedY
-#         # prev = lst[i-1]
-        
-#         pygame.draw.circle(screen,yellow,(robot_x,robot_y),12)
-#         pygame.draw.circle(screen,white,(current[0],current[1]),12)
-#         i +=1
-
 clock = pygame.time.Clock()
 staticObss = []
 dynamicObss = []
@@ -131,7 +112,7 @@ while it!= len(list_vertices) and running:
 
     #draw input form
     text_input_surface = font.render(input_text,True,(0,0,0))
-    screen.blit(load_file_input_text,(835,80))
+    screen.blit(load_file_input_text,(550,80))
     pygame.draw.rect(screen,red,input_rect,2)
     screen.blit(text_input_surface,(input_rect.x+10,input_rect.y+8))
     input_rect.w = max(150,text_input_surface.get_width()+10)
@@ -140,9 +121,8 @@ while it!= len(list_vertices) and running:
     # draw_vertices(list_node,red)
     # draw_vertices(list_vertices,black)
     #draw robot and goal
-    # pygame.draw.circle
+
     robot.draw(screen=screen, pos = list_vertices[it])
-    # pygame.draw.circle(screen,yellow,(x_robot,y_robot),12)
     pygame.draw.rect(screen,red,[x_goal,y_goal,20,20])
     # for i in dyn1:
     #     i.move()
