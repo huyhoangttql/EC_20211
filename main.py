@@ -3,10 +3,14 @@ import pygame,sys
 import json
 from DynamicObs import *
 from StaticObs import *
-from algo import list_vertices,list_node
+# from algo import list_vertices,list_node
+from algo import vor
+
 import time
 from Robot import *
-from clean import list_node1,list_vertices1
+# from clean import list_node1,list_vertices1
+from clean import vor_obs
+
 pygame.init()
 
 screen = pygame.display.set_mode((800,700))
@@ -41,6 +45,8 @@ y_goal = 170
 
 # active = False
 
+file_input = "input3.json"
+
 def inputLoader(input_file):
     inputLoad = True
     staticObss = []
@@ -65,9 +71,14 @@ def inputLoader(input_file):
             break
     return staticObss,dynamicObss
 
+list_vertices, list_node = vor([2, 1], [3, 4.3], file_input)
+
 list_vertices.insert(0,[x_robot,y_robot])
 list_vertices.append([x_goal,y_goal])
-list_vertices1.append([x_goal,y_goal])
+
+# list_vertices1 = vor_obs([2.5, 0.62], [3, 4.1], file_input)
+
+# list_vertices1.append([x_goal,y_goal])
 # list_vertices.append([0,0])
 # print(len(list_vertices))
 robot = Robot(screen,200,600,list_vertices,12)
@@ -84,8 +95,8 @@ def draw_vertices(lst,color):
         pygame.draw.rect(screen,color,[lst[i][0],lst[i][1],3,3])
 # dyn1 = [DynamicObs(screen,100,100,3,4,80,120,5),DynamicObs(screen,150,150,2,3,130,160,3)
 # ]
-print(list_vertices1)
-staticObss,dynamicObss = inputLoader(input_file='input3.json')
+# print(list_vertices1)
+staticObss,dynamicObss = inputLoader(input_file=file_input)
 while it!= len(list_vertices) and running:
     #print(list_vertices[it])
 
@@ -119,8 +130,8 @@ while it!= len(list_vertices) and running:
     input_rect.w = max(150,text_input_surface.get_width()+10)
     pygame.draw.line(screen,black,(500,0),(500,600),4)
 
-    # draw_vertices(list_node,red)
-    # draw_vertices(list_vertices,black)
+    draw_vertices(list_node,red)
+    draw_vertices(list_vertices,black)
     #draw robot and goal
 
     robot.draw(screen=screen, pos = list_vertices[it])
@@ -156,8 +167,13 @@ while it!= len(list_vertices) and running:
                 it-=1
                 # list_vertices.insert(0,(list_vertices[it]))
                 # list_vertices = list_vertices1
+                list_vertices1 = vor_obs([list_vertices[it][0]/100, list_vertices[it][1]/100], [3, 4.1], file_input, obstacle)
+                list_vertices1.append([x_goal,y_goal])
+                list_vertices = list_vertices1
+                # list_vertices1 = vor_obs([2.5, 0.62], [3, 4.1], file_input)
+
                 # it = 0
-                list_node = list_node1
+                # list_node = list_node1
         if k==0:
             
                 # list_vertices.insert(0,(list_vertices[it]))
