@@ -46,7 +46,7 @@ def vor(start, end, json_file):
                 xa, xb = xb, xa
             if(ya > yb):
                 ya, yb = yb, ya
-            print(xa, xb, ya, yb)
+            # print(xa, xb, ya, yb)
             add_point(xa, xb, ya, yb)
     # add_point(2,2.5,3,3.7)
     # add_point(2.25,2.85,2.7,3)

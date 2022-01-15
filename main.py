@@ -9,7 +9,7 @@ from algo import vor
 import time
 from Robot import *
 # from clean import list_node1,list_vertices1
-from clean import vor_obs
+from clean import vector1, vor_obs,toofarpoint
 
 pygame.init()
 
@@ -75,6 +75,7 @@ list_vertices, list_node = vor([2, 1], [3, 4.3], file_input)
 
 list_vertices.insert(0,[x_robot,y_robot])
 list_vertices.append([x_goal,y_goal])
+toofarpoint(list_vertices)
 
 # list_vertices1 = vor_obs([2.5, 0.62], [3, 4.1], file_input)
 
@@ -96,6 +97,7 @@ def draw_vertices(lst,color):
 # dyn1 = [DynamicObs(screen,100,100,3,4,80,120,5),DynamicObs(screen,150,150,2,3,130,160,3)
 # ]
 # print(list_vertices1)
+# list_vertices1 = vor_obs([list_vertices[it][0]/100, list_vertices[it][1]/100], [3, 4.1], file_input, obstacle)
 staticObss,dynamicObss = inputLoader(input_file=file_input)
 while it!= len(list_vertices) and running:
     #print(list_vertices[it])
@@ -153,35 +155,41 @@ while it!= len(list_vertices) and running:
     print(it)
     print(list_vertices[it])
     for obstacle in dynamicObss:  
-        k=len(list_vertices)
+        k=30
         
-        if(distance(list_vertices[it],[obstacle.dynX,obstacle.dynY])<30): 
+        if(distance(list_vertices[it],[obstacle.dynX,obstacle.dynY])<40 and vector1(obstacle.speedX,obstacle.speedY,obstacle.dynX,obstacle.dynY,list_vertices,it)): 
             while k:
                 k= k-1
                 print(k)
                 print("detect dynamic obs")
-                print([obstacle.dynX,obstacle.dynY])
-                print([obstacle.speedX,obstacle.speedY])
-                print(list_vertices[it])
-                print([list_vertices[it+1][0]-list_vertices[it][0],list_vertices[it+1][1]-list_vertices[it][1]])
+                # print([obstacle.dynX,obstacle.dynY])
+                # print([obstacle.speedX,obstacle.speedY])
+                # print(list_vertices[it])
+                # print([list_vertices[it+1][0]-list_vertices[it][0],list_vertices[it+1][1]-list_vertices[it][1]])
                 it-=1
+                print(it)
                 # list_vertices.insert(0,(list_vertices[it]))
                 # list_vertices = list_vertices1
-                list_vertices1 = vor_obs([list_vertices[it][0]/100, list_vertices[it][1]/100], [3, 4.1], file_input, obstacle)
-                list_vertices1.append([x_goal,y_goal])
-                list_vertices = list_vertices1
+                
+                # list_vertices = list_vertices1
                 # list_vertices1 = vor_obs([2.5, 0.62], [3, 4.1], file_input)
 
                 # it = 0
                 # list_node = list_node1
-        if k==0:
+            if k==0:
+                it=it+30
+                print(it)
+                list_vertices1 = vor_obs([list_vertices[it][0]/100,6- list_vertices[it][1]/100], [3, 4.1], file_input, obstacle)
+                list_vertices1.append([x_goal,y_goal])
+                list_vertices1.insert(0,(list_vertices[it]))
+                toofarpoint(list_vertices1)
+                print("list vertices1:", list_vertices1)
+                    # list_vertices.insert(0,(list_vertices[it]))
+                list_vertices = list_vertices1
+                it = -1
+                k=50
             
-                # list_vertices.insert(0,(list_vertices[it]))
-            list_vertices = list_vertices1
-            it = 0
-            k=50
-            
-        
+
     it+=1
     
 pygame.quit()

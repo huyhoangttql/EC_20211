@@ -5,8 +5,8 @@ from dijkstar import Graph, find_path
 from dijkstar.algorithm import PathInfo
 from scipy.spatial import Voronoi, voronoi_plot_2d
 
-def vor_obs(start, end, json_file, obs):
-
+def vor_obs(start, end, json_file, obs): 
+# 
 
 #hàm để add point bị giới hạn bởi (xa,xb) và (ya,yb)
     def add_point(xa,xb,ya,yb):
@@ -55,7 +55,7 @@ def vor_obs(start, end, json_file, obs):
                 xa, xb = xb, xa
             if(ya > yb):
                 ya, yb = yb, ya
-            print(xa, xb, ya, yb)
+            # print(xa, xb, ya, yb)
             add_point(xa, xb, ya, yb)
 
     # add_point(1,2,4,5)
@@ -91,19 +91,7 @@ def vor_obs(start, end, json_file, obs):
             if(ya > yb):
                 ya, yb = yb, ya
             checkinside(xa, xb, ya, yb)
-    # checkinside(1,2,4,5)
-    # checkinside(2,2.5,2,3)
-    # checkinside(1.5,2,1,1.5)
-    # checkinside(4,4.5,3.5,4.5)
-    # checkinside(3,3.5,3,4)
-    # checkinside(2.8,3.5,0.8,1)
 
-
-
-
-    # checkinside(2,2.5,3,3.7)
-    # checkinside(2.25,2.85,2.7,3)
-    # print(vor_check)
 
     fig = voronoi_plot_2d(vor)
 
@@ -170,29 +158,48 @@ def vor_obs(start, end, json_file, obs):
     # print(list_node1)
     # plt.show()
 
-    def toofarpoint(list_vertices):
-        i = len(list_vertices) - 1
-        while (i >= 1):
-        # for i in range(len(list_vertices) - 1):
-            ver_dist = distance_list(list_vertices[i], list_vertices[i-1])
-            # print(ver_dist)
-            if (ver_dist > 10):
-                x = np.linspace(list_vertices[i-1][0], list_vertices[i][0], int(ver_dist/10))
-                y = np.linspace(list_vertices[i-1][1], list_vertices[i][1], int(ver_dist/10))
-                for j in range(int(ver_dist/10)):
-                    # print(i+j)
-                    list_vertices.insert(i+j, [x[j], y[j]])
-                # if i > 5: 
-                #     i = i - 4
-            i = i - 1
+    
 
-    toofarpoint(list_vertices1)
+    # toofarpoint(list_vertices1)
     # print(distance_list(list_vertices1[0], list_vertices1[1]))
-    print(list_vertices1)
+    # print(list_vertices1)
     # for i in range(len(list_vertices1) - 1):
     # print(distance_list(list_vertices1[30], list_vertices1[31]))
 
     return list_vertices1
 
 # vor_obs([2.5, 0.62], [3, 4.1], 'input4.json')
-    
+
+list1 = [[301.9, 375.0], [298.9, 365.0], [298.4, 362.4], [295.2, 355.0], [292.2, 345.0], [291.4, 340.5], [287.0, 335.0], [281.0, 325.0], [277.0, 
+315.0], [275.0, 305.0], [275.0, 295.0], [273.0, 285.0], [269.0, 275.0], [263.0, 265.0], [255.0, 255.0], [245.0, 245.0], [241.4, 241.4], [244.0, 235.0], [247.0, 225.0], [249.0, 215.0], [250.0, 205.0], [250.0, 195.0], [251.0, 185.0], [251.0, 185.0], [267.3333333333333, 186.66666666666669], [283.6666666666667, 188.33333333333337], [300.0, 190.00000000000006], [300, 190.00000000000006], [300, 170]]
+
+def toofarpoint(list_vertices):
+    def distance_list(start, end):
+        return np.sqrt(np.abs((start[0] - end[0])**2 - (start[1] - end[1])**2))
+    i = len(list_vertices) - 1
+    while (i >= 1):
+    # for i in range(len(list_vertices) - 1):
+        ver_dist = distance_list(list_vertices[i], list_vertices[i-1])
+        # print(ver_dist)
+        if (ver_dist > 10):
+            x = np.linspace(list_vertices[i-1][0], list_vertices[i][0], int(ver_dist/10)+2)
+            y = np.linspace(list_vertices[i-1][1], list_vertices[i][1], int(ver_dist/10)+2)
+            # print("--------------------")
+            # print(i)
+            # print("--------------------")
+            # print([x,y])
+            # print("--------------------")
+            for j in range(1,int(ver_dist/10)+1):
+                # print(j)
+                # print(i+j)
+                # print([x[j], y[j]])
+                list_vertices.insert(i+j-1, [x[j], y[j]])
+            # if i > 5: 
+            #     i = i - 4
+        i = i - 1   
+
+#xét vị trí tương đối so với chướng ngại vật động
+def vector1(speedX,speedY,dynX,dynY,list_vertice,it):
+    Z = speedY*dynX - speedX*dynY
+    f = (speedY*list_vertice[it][0]-speedX*list_vertice[it][1]-Z)*(speedY*list_vertice[it+5][0]-speedX*list_vertice[it+5][1]-Z)
+    return (f<0)
